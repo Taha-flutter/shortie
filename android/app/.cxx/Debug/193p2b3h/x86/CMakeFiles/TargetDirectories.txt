@@ -1,0 +1,2 @@
+C:/Users/Taha/Downloads/codecanyon-eWNYOQKO-shortie-short-video-live-streaming-app-with-admin-panel-flutter-script-android-ios/shortie/shortie_without_ad/android/app/.cxx/Debug/193p2b3h/x86/CMakeFiles/edit_cache.dir
+C:/Users/Taha/Downloads/codecanyon-eWNYOQKO-shortie-short-video-live-streaming-app-with-admin-panel-flutter-script-android-ios/shortie/shortie_without_ad/android/app/.cxx/Debug/193p2b3h/x86/CMakeFiles/rebuild_cache.dir
