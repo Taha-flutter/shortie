@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -99,7 +100,9 @@ abstract class Utils {
     if (InternetConnection.isConnect.value) {
       Stripe.publishableKey = Utils.stripeTestPublicKey;
       await Stripe.instance.applySettings();
-      InAppPurchaseAndroidPlatformAddition.enablePendingPurchases();
+    /*  if (Platform.isAndroid) {
+        InAppPurchaseAndroidPlatformAddition.enablePendingPurchases();
+      }*/
     }
   }
 }

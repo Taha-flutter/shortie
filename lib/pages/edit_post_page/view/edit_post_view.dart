@@ -7,8 +7,6 @@ import 'package:shortie/pages/edit_post_page/widget/edit_post_widget.dart';
 import 'package:shortie/ui/app_button_ui.dart';
 import 'package:shortie/ui/preview_network_image_ui.dart';
 import 'package:shortie/ui/simple_app_bar_ui.dart';
-import 'package:shortie/utils/api.dart';
-import 'package:shortie/utils/asset.dart';
 import 'package:shortie/utils/color.dart';
 import 'package:shortie/utils/enums.dart';
 import 'package:shortie/utils/font_style.dart';

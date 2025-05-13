@@ -4,7 +4,6 @@ import 'package:shortie/main.dart';
 import 'package:shortie/pages/fill_profile_page/controller/fill_profile_controller.dart';
 import 'package:shortie/utils/asset.dart';
 import 'package:shortie/utils/color.dart';
-import 'package:shortie/utils/custom_username.dart';
 import 'package:shortie/utils/database.dart';
 import 'package:shortie/utils/enums.dart';
 import 'package:shortie/utils/font_style.dart';

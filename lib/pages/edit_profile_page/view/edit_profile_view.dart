@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shortie/ui/loading_ui.dart';
 import 'package:shortie/ui/preview_network_image_ui.dart';
 import 'package:shortie/ui/app_button_ui.dart';
 import 'package:shortie/main.dart';

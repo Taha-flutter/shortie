@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:camera/camera.dart';
 import 'package:deepar_flutter/deepar_flutter.dart';

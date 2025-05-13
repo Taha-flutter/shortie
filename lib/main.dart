@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
+import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:shortie/localization/locale_constant.dart';
 import 'package:shortie/localization/localizations_delegate.dart';
 import 'package:shortie/routes/app_pages.dart';
@@ -49,6 +51,11 @@ void main() async {
   NotificationServices.init();
   NotificationServices.firebaseInit();
   FirebaseMessaging.onBackgroundMessage(NotificationServices.onShowBackgroundNotification);
+
+  // Initialize in-app purchases
+/*  if (Platform.isAndroid) {
+    InAppPurchaseAndroidPlatformAddition.enablePendingPurchases();
+  }*/
 
   runApp(const MyApp());
 }

@@ -80,7 +80,7 @@ class SettingView extends GetView<SettingController> {
                                     scale: 0.8,
                                     child: CupertinoSwitch(
                                       value: controller.isShowNotification,
-                                      activeColor: AppColor.primary,
+                                      activeTrackColor: AppColor.primary,
                                       onChanged: (value) => controller.onSwitchNotification(),
                                     ),
                                   ),

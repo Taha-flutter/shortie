@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shortie/pages/splash_screen_page/controller/splash_screen_controller.dart';
 import 'package:shortie/utils/asset.dart';
 import 'package:shortie/utils/color.dart';
