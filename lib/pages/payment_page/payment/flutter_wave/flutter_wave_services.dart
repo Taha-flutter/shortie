@@ -13,7 +13,7 @@ class FlutterWaveService {
 
     Utils.showLog("Flutter Wave Id => ${Utils.flutterWaveId}");
     final Flutterwave flutterWave = Flutterwave(
-      context: Get.context!,
+      // context: Get.context!,
       publicKey: Utils.flutterWaveId,
       currency: Utils.flutterWaveCurrencyCode,
       redirectUrl: "https://www.google.com/",
@@ -27,7 +27,7 @@ class FlutterWaveService {
 
     Utils.showLog("Flutter Wave Payment Finish");
 
-    final ChargeResponse response = await flutterWave.charge();
+    final ChargeResponse response = await flutterWave.charge(Get.context!);
 
     Utils.showLog(
         "Flutter Wave Payment Status => ${response.status.toString()}");
