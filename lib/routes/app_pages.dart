@@ -170,11 +170,11 @@ class AppPages {
       page: () => const CreateReelsView(),
       binding: CreateReelsBinding(),
     ),
-    GetPage(
-      name: AppRoutes.previewCreatedReelsPage,
-      page: () => const PreviewCreatedReelsView(),
-      binding: PreviewCreatedReelsBinding(),
-    ),
+    // GetPage(
+    //   name: AppRoutes.previewCreatedReelsPage,
+    //   page: () => const PreviewCreatedReelsView(),
+    //   binding: PreviewCreatedReelsBinding(),
+    // ),
     GetPage(
       name: AppRoutes.trimVideoPage,
       page: () => const TrimVideoView(),

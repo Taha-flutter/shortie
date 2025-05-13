@@ -7,10 +7,10 @@ import 'package:shortie/routes/app_routes.dart';
 import 'package:shortie/ui/loading_ui.dart';
 import 'package:shortie/utils/enums.dart';
 import 'package:shortie/utils/utils.dart';
-import 'package:video_trimmer/video_trimmer.dart';
+// import 'package:video_trimmer/video_trimmer.dart';
 
 class TrimVideoController extends GetxController {
-  final Trimmer trimmer = Trimmer();
+  // final Trimmer trimmer = Trimmer();
 
   double startValue = 0.0;
   double endValue = 0.0;
@@ -34,7 +34,7 @@ class TrimVideoController extends GetxController {
 
   @override
   void onClose() {
-    trimmer.dispose();
+    // trimmer.dispose();
     super.onClose();
   }
 
@@ -42,7 +42,7 @@ class TrimVideoController extends GetxController {
     try {
       isLoading = true;
       update(["onLoadVideo"]);
-      await trimmer.loadVideo(videoFile: File(videoPath));
+      // await trimmer.loadVideo(videoFile: File(videoPath));
       isLoading = false;
       update(["onLoadVideo"]);
     } catch (e) {
@@ -52,45 +52,45 @@ class TrimVideoController extends GetxController {
 
   void onClickSave() async {
     Get.dialog(LoadingUi(), barrierDismissible: false);
-    try {
-      await trimmer.saveTrimmedVideo(
-        startValue: startValue,
-        endValue: endValue,
-        onSave: (String? outputPath) async {
-          saveVideoPath = outputPath ?? "";
-          Get.back();
-          Utils.showLog("Trim Video Path => $saveVideoPath");
+    // try {
+    // await trimmer.saveTrimmedVideo(
+    //   startValue: startValue,
+    //   endValue: endValue,
+    //   onSave: (String? outputPath) async {
+    //     saveVideoPath = outputPath ?? "";
+    //     Get.back();
+    //     Utils.showLog("Trim Video Path => $saveVideoPath");
 
-          if (saveVideoPath != "") {
-            final videoTime = await CustomVideoTime.onGet(saveVideoPath);
-            final videoImage = await CustomThumbnail.onGet(saveVideoPath);
+    //     if (saveVideoPath != "") {
+    //       final videoTime = await CustomVideoTime.onGet(saveVideoPath);
+    //       final videoImage = await CustomThumbnail.onGet(saveVideoPath);
 
-            if (videoTime != null && videoImage != null) {
-              Utils.showLog("Video Path => ${saveVideoPath}");
-              Utils.showLog("Video Image => ${videoImage}");
-              Utils.showLog("Video Time => ${videoTime}");
+    //       if (videoTime != null && videoImage != null) {
+    //         Utils.showLog("Video Path => ${saveVideoPath}");
+    //         Utils.showLog("Video Image => ${videoImage}");
+    //         Utils.showLog("Video Time => ${videoTime}");
 
-              Get.offAndToNamed(
-                AppRoutes.previewTrimVideoPage,
-                arguments: {
-                  "video": saveVideoPath,
-                  "image": videoImage,
-                  "time": videoTime,
-                  "songId": songId,
-                },
-              );
-            } else {
-              Utils.showToast(EnumLocal.txtSomeThingWentWrong.name.tr);
-            }
-          } else {
-            Utils.showToast(EnumLocal.txtSomeThingWentWrong.name.tr);
-          }
-        },
-      );
-    } catch (e) {
-      Get.back();
-      Utils.showLog("Trim Video Saving Failed => $e");
-    }
+    //         Get.offAndToNamed(
+    //           AppRoutes.previewTrimVideoPage,
+    //           arguments: {
+    //             "video": saveVideoPath,
+    //             "image": videoImage,
+    //             "time": videoTime,
+    //             "songId": songId,
+    //           },
+    //         );
+    //   } else {
+    //     Utils.showToast(EnumLocal.txtSomeThingWentWrong.name.tr);
+    //   }
+    // } else {
+    //   Utils.showToast(EnumLocal.txtSomeThingWentWrong.name.tr);
+    // }
+    // },
+    // );
+    // } catch (e) {
+    //   Get.back();
+    //   Utils.showLog("Trim Video Saving Failed => $e");
+    // }
   }
 
   void onToggleIcon() {
@@ -114,7 +114,7 @@ class TrimVideoController extends GetxController {
   }
 
   void onTogglePlayButton() async {
-    isPlaying = await trimmer.videoPlaybackControl(startValue: startValue, endValue: endValue);
+    // isPlaying = await trimmer.videoPlaybackControl(startValue: startValue, endValue: endValue);
     update(["onChangePosition"]);
   }
 }

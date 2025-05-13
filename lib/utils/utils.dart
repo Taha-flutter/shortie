@@ -27,59 +27,83 @@ abstract class Utils {
   // >>>>> >>>>> Edit Profile Page <<<<< <<<<<
 
   static int waterMarkSize = 25;
-  static bool isShowWaterMark = AdminSettingsApi.adminSettingModel?.data?.isWatermarkOn ?? false;
-  static String waterMarkIcon = AdminSettingsApi.adminSettingModel?.data?.watermarkIcon ?? "";
+  static bool isShowWaterMark =
+      AdminSettingsApi.adminSettingModel?.data?.isWatermarkOn ?? false;
+  static String waterMarkIcon =
+      AdminSettingsApi.adminSettingModel?.data?.watermarkIcon ?? "";
 
-  static TextEditingController countryController = TextEditingController(text: "India");
-  static TextEditingController flagController = TextEditingController(text: "🇮🇳");
+  static TextEditingController countryController =
+      TextEditingController(text: "India");
+  static TextEditingController flagController =
+      TextEditingController(text: "🇮🇳");
 
   // >>>>> >>>>> Show Reels Effect <<<<< <<<<<
 
-  static final bool isShowReelsEffect = AdminSettingsApi.adminSettingModel?.data?.isEffectActive ?? false;
+  static final bool isShowReelsEffect =
+      AdminSettingsApi.adminSettingModel?.data?.isEffectActive ?? false;
 
   // >>>>> >>>>> Upload Shorts Limit <<<<< <<<<<
 
-  static final int shortsDuration = AdminSettingsApi.adminSettingModel?.data?.durationOfShorts ?? 0;
+  static final int shortsDuration =
+      AdminSettingsApi.adminSettingModel?.data?.durationOfShorts ?? 0;
 
-  static final String effectAndroidLicenseKey = AdminSettingsApi.adminSettingModel?.data?.androidLicenseKey ?? "";
-  static final String effectIosLicenseKey = AdminSettingsApi.adminSettingModel?.data?.iosLicenseKey ?? "";
+  static final String effectAndroidLicenseKey =
+      AdminSettingsApi.adminSettingModel?.data?.androidLicenseKey ?? "";
+  static final String effectIosLicenseKey =
+      AdminSettingsApi.adminSettingModel?.data?.iosLicenseKey ?? "";
 
   // >>>>> >>>>> Web View Url <<<<< <<<<<
 
-  static final String privacyPolicyLink = AdminSettingsApi.adminSettingModel?.data?.privacyPolicyLink ?? "";
-  static final String termsOfUseLink = AdminSettingsApi.adminSettingModel?.data?.termsOfUsePolicyLink ?? "";
+  static final String privacyPolicyLink =
+      AdminSettingsApi.adminSettingModel?.data?.privacyPolicyLink ?? "";
+  static final String termsOfUseLink =
+      AdminSettingsApi.adminSettingModel?.data?.termsOfUsePolicyLink ?? "";
 
   // >>>>> >>>>> Show Payment Method <<<<< <<<<<
 
-  static final bool isShowStripePaymentMethod = AdminSettingsApi.adminSettingModel?.data?.stripeSwitch ?? false;
-  static final bool isShowRazorPayPaymentMethod = AdminSettingsApi.adminSettingModel?.data?.razorPaySwitch ?? false;
-  static final bool isShowFlutterWavePaymentMethod = AdminSettingsApi.adminSettingModel?.data?.flutterWaveSwitch ?? false;
-  static final bool isShowInAppPurchasePaymentMethod = AdminSettingsApi.adminSettingModel?.data?.googlePlaySwitch ?? false;
+  static final bool isShowStripePaymentMethod =
+      AdminSettingsApi.adminSettingModel?.data?.stripeSwitch ?? false;
+  static final bool isShowRazorPayPaymentMethod =
+      AdminSettingsApi.adminSettingModel?.data?.razorPaySwitch ?? false;
+  static final bool isShowFlutterWavePaymentMethod =
+      AdminSettingsApi.adminSettingModel?.data?.flutterWaveSwitch ?? false;
+  static final bool isShowInAppPurchasePaymentMethod =
+      AdminSettingsApi.adminSettingModel?.data?.googlePlaySwitch ?? false;
 
   // >>>>> >>>>> Live Streaming Credential <<<<< <<<<<
 
   static final String serverSecret = "";
-  static final String liveAppSign = AdminSettingsApi.adminSettingModel?.data?.zegoAppSignIn ?? "";
-  static final int liveAppId = int.parse(AdminSettingsApi.adminSettingModel?.data?.zegoAppId?.toString() ?? "00");
+  static final String liveAppSign =
+      AdminSettingsApi.adminSettingModel?.data?.zegoAppSignIn ?? "";
+  static final int liveAppId = int.parse(
+      AdminSettingsApi.adminSettingModel?.data?.zegoAppId?.toString() ?? "00");
 
   // >>>>> >>>>> RazorPay Payment Credential <<<<< <<<<<
 
-  static String razorpayTestKey = AdminSettingsApi.adminSettingModel?.data?.razorSecretKey ?? "";
-  static String razorpayCurrencyCode = AdminSettingsApi.adminSettingModel?.data?.currency?.currencyCode ?? "";
+  static String razorpayTestKey =
+      AdminSettingsApi.adminSettingModel?.data?.razorSecretKey ?? "";
+  static String razorpayCurrencyCode =
+      AdminSettingsApi.adminSettingModel?.data?.currency?.currencyCode ?? "";
 
   // >>>>> >>>>> Stripe Payment Credential <<<<< <<<<<
 
   static const String stripeUrl = "https://api.stripe.com/v1/payment_intents";
 
-  static String stripeMerchantCountryCode = AdminSettingsApi.adminSettingModel?.data?.currency?.countryCode ?? "";
-  static String stripeCurrencyCode = AdminSettingsApi.adminSettingModel?.data?.currency?.currencyCode ?? "";
-  static String stripeTestSecretKey = AdminSettingsApi.adminSettingModel?.data?.stripeSecretKey ?? "";
-  static String stripeTestPublicKey = AdminSettingsApi.adminSettingModel?.data?.stripePublishableKey ?? "";
+  static String stripeMerchantCountryCode =
+      AdminSettingsApi.adminSettingModel?.data?.currency?.countryCode ?? "";
+  static String stripeCurrencyCode =
+      AdminSettingsApi.adminSettingModel?.data?.currency?.currencyCode ?? "";
+  static String stripeTestSecretKey =
+      AdminSettingsApi.adminSettingModel?.data?.stripeSecretKey ?? "";
+  static String stripeTestPublicKey =
+      AdminSettingsApi.adminSettingModel?.data?.stripePublishableKey ?? "";
 
   // >>>>> >>>>> Flutter Wave Credential <<<<< <<<<<
 
-  static String flutterWaveId = AdminSettingsApi.adminSettingModel?.data?.flutterWaveId ?? "";
-  static String flutterWaveCurrencyCode = AdminSettingsApi.adminSettingModel?.data?.currency?.currencyCode ?? "";
+  static String flutterWaveId =
+      AdminSettingsApi.adminSettingModel?.data?.flutterWaveId ?? "";
+  static String flutterWaveCurrencyCode =
+      AdminSettingsApi.adminSettingModel?.data?.currency?.currencyCode ?? "";
 
   // >>>>>> >>>>>> Initialize Live Steaming <<<<<< <<<<<<
 
@@ -99,7 +123,7 @@ abstract class Utils {
     if (InternetConnection.isConnect.value) {
       Stripe.publishableKey = Utils.stripeTestPublicKey;
       await Stripe.instance.applySettings();
-      InAppPurchaseAndroidPlatformAddition.enablePendingPurchases();
+      // InAppPurchaseAndroidPlatformAddition.enablePendingPurchases();
     }
   }
 }

@@ -42,12 +42,13 @@ class PreviewShortsVideoView extends GetView<PreviewShortsVideoController> {
                     },
                     itemBuilder: (context, index) {
                       return GetBuilder<PreviewShortsVideoController>(
-                        id: "onChangePage",
-                        builder: (controller) => PreviewShortsView(
-                          index: index,
-                          currentPageIndex: controller.currentPageIndex,
-                        ),
-                      );
+                          id: "onChangePage",
+                          builder: (controller) => SizedBox()
+                          // PreviewShortsView(
+                          //   index: index,
+                          //   currentPageIndex: controller.currentPageIndex,
+                          // ),
+                          );
                     },
                   ),
       ),

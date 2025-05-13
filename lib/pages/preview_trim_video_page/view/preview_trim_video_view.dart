@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:chewie/chewie.dart';
+// import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -39,7 +39,7 @@ class PreviewTrimVideoView extends GetView<PreviewTrimVideoController> {
             alignment: Alignment.center,
             children: [
               GestureDetector(
-                onTap: controller.onClickVideo,
+                // onTap: controller.onClickVideo,
                 child: Container(
                   color: AppColor.black,
                   height: Get.height,
@@ -50,10 +50,14 @@ class PreviewTrimVideoView extends GetView<PreviewTrimVideoController> {
                           child: FittedBox(
                             fit: BoxFit.cover,
                             child: SizedBox(
-                              width: controller.videoPlayerController?.value.size.width ?? 0,
-                              height: controller.videoPlayerController?.value.size.height ?? 0,
-                              child: Chewie(controller: controller.chewieController!),
-                            ),
+                                // width: controller.videoPlayerController?.value
+                                //         .size.width ??
+                                //     0,
+                                // height: controller.videoPlayerController?.value
+                                //         .size.height ??
+                                //     0,
+                                // child: Chewie(controller: controller.chewieController!),
+                                ),
                           ),
                         ),
                 ),
@@ -64,17 +68,22 @@ class PreviewTrimVideoView extends GetView<PreviewTrimVideoController> {
                     ? Align(
                         alignment: Alignment.center,
                         child: GestureDetector(
-                          onTap: controller.onClickPlayPause,
+                          // onTap: controller.onClickPlayPause,
                           child: GetBuilder<PreviewTrimVideoController>(
                             id: "onChangePlayPauseIcon",
                             builder: (controller) => Container(
                               height: 70,
                               width: 70,
-                              padding: EdgeInsets.only(left: controller.isPlaying ? 0 : 2),
-                              decoration: BoxDecoration(color: AppColor.black.withOpacity(0.2), shape: BoxShape.circle),
+                              padding: EdgeInsets.only(
+                                  left: controller.isPlaying ? 0 : 2),
+                              decoration: BoxDecoration(
+                                  color: AppColor.black.withOpacity(0.2),
+                                  shape: BoxShape.circle),
                               child: Center(
                                 child: Image.asset(
-                                  controller.isPlaying ? AppAsset.icPause : AppAsset.icPlay,
+                                  controller.isPlaying
+                                      ? AppAsset.icPause
+                                      : AppAsset.icPlay,
                                   width: 30,
                                   height: 30,
                                   color: AppColor.white,
@@ -93,7 +102,10 @@ class PreviewTrimVideoView extends GetView<PreviewTrimVideoController> {
                   width: Get.width,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [AppColor.black.withOpacity(0.7), AppColor.transparent],
+                      colors: [
+                        AppColor.black.withOpacity(0.7),
+                        AppColor.transparent
+                      ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -107,7 +119,10 @@ class PreviewTrimVideoView extends GetView<PreviewTrimVideoController> {
                   width: Get.width,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [AppColor.transparent, AppColor.black.withOpacity(0.7)],
+                      colors: [
+                        AppColor.transparent,
+                        AppColor.black.withOpacity(0.7)
+                      ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -145,7 +160,7 @@ class PreviewTrimVideoView extends GetView<PreviewTrimVideoController> {
                       gradient: AppColor.primaryLinearGradient,
                       title: EnumLocal.txtNext.name.tr,
                       callback: () {
-                        controller.onClickNext();
+                        // controller.onClickNext();
                       },
                     ),
                   ),

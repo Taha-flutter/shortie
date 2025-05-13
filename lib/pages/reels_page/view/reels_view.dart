@@ -58,24 +58,29 @@ class ReelsView extends GetView<ReelsController> {
                                   Center(
                                     child: Text(
                                       EnumLocal.txtUploadYourFirstVideo.name.tr,
-                                      style: AppFontStyle.styleW500(AppColor.black, 17),
+                                      style: AppFontStyle.styleW500(
+                                          AppColor.black, 17),
                                     ),
                                   ),
                                   15.height,
                                   GestureDetector(
                                     onTap: () {
-                                      VideoPickerBottomSheetUi.show(context: context);
+                                      VideoPickerBottomSheetUi.show(
+                                          context: context);
                                     },
                                     child: Container(
                                       height: 45,
                                       width: 120,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                        border: Border.all(color: AppColor.primary, width: 1.5),
+                                        border: Border.all(
+                                            color: AppColor.primary,
+                                            width: 1.5),
                                         borderRadius: BorderRadius.circular(50),
                                       ),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
                                           8.width,
                                           Icon(
@@ -84,7 +89,9 @@ class ReelsView extends GetView<ReelsController> {
                                             size: 27,
                                           ),
                                           8.width,
-                                          Text(EnumLocal.txtUpload.name.tr, style: AppFontStyle.styleW700(AppColor.primary, 17)),
+                                          Text(EnumLocal.txtUpload.name.tr,
+                                              style: AppFontStyle.styleW700(
+                                                  AppColor.primary, 17)),
                                         ],
                                       ),
                                     ),
@@ -114,12 +121,13 @@ class ReelsView extends GetView<ReelsController> {
                       },
                       itemBuilder: (context, index) {
                         return GetBuilder<ReelsController>(
-                          id: "onChangePage",
-                          builder: (controller) => PreviewReelsView(
-                            index: index,
-                            currentPageIndex: controller.currentPageIndex,
-                          ),
-                        );
+                            id: "onChangePage",
+                            builder: (controller) => SizedBox()
+                            //  PreviewReelsView(
+                            //   index: index,
+                            //   currentPageIndex: controller.currentPageIndex,
+                            // ),
+                            );
                       },
                     ),
                   ),

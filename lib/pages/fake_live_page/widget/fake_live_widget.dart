@@ -1,11 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chewie/chewie.dart';
+// import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shortie/custom/custom_format_number.dart';
-
 
 import 'package:shortie/main.dart';
 import 'package:shortie/pages/fake_live_page/widget/fake_comment_data.dart';
@@ -48,7 +47,10 @@ class HostLiveUi extends StatelessWidget {
               width: Get.width,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [AppColor.transparent, AppColor.black.withOpacity(0.7)],
+                  colors: [
+                    AppColor.transparent,
+                    AppColor.black.withOpacity(0.7)
+                  ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -81,9 +83,11 @@ class HostLiveUi extends StatelessWidget {
                               8.width,
                               Obx(
                                 () => Text(
-                                  CustomFormatNumber.convert(SocketServices.userWatchCount.value),
+                                  CustomFormatNumber.convert(
+                                      SocketServices.userWatchCount.value),
                                   maxLines: 1,
-                                  style: AppFontStyle.styleW700(AppColor.white, 12),
+                                  style: AppFontStyle.styleW700(
+                                      AppColor.white, 12),
                                 ),
                               ),
                             ],
@@ -102,10 +106,13 @@ class HostLiveUi extends StatelessWidget {
                               ),
                               8.width,
                               Padding(
-                                padding: const EdgeInsets.only(top: 2, right: 35),
+                                padding:
+                                    const EdgeInsets.only(top: 2, right: 35),
                                 child: Text(
-                                  controller.onConvertSecondToHMS(controller.countTime),
-                                  style: AppFontStyle.styleW600(AppColor.white, 15),
+                                  controller.onConvertSecondToHMS(
+                                      controller.countTime),
+                                  style: AppFontStyle.styleW600(
+                                      AppColor.white, 15),
                                 ),
                               ),
                             ],
@@ -126,7 +133,9 @@ class HostLiveUi extends StatelessWidget {
                         circleSize: 40,
                         iconSize: 20,
                         gradient: AppColor.primaryLinearGradient,
-                        icon: controller.isMicOn ? AppAsset.icMicOn : AppAsset.icMicOff,
+                        icon: controller.isMicOn
+                            ? AppAsset.icMicOn
+                            : AppAsset.icMicOff,
                         iconColor: AppColor.white,
                         callback: controller.onSwitchMic,
                       ),
@@ -197,7 +206,11 @@ class HostLiveUi extends StatelessWidget {
 }
 
 class UserLiveUi extends StatelessWidget {
-  const UserLiveUi({super.key, required this.liveScreen, required this.liveRoomId, required this.liveUserId});
+  const UserLiveUi(
+      {super.key,
+      required this.liveScreen,
+      required this.liveRoomId,
+      required this.liveUserId});
 
   final Widget liveScreen;
   final String liveRoomId;
@@ -218,10 +231,14 @@ class UserLiveUi extends StatelessWidget {
                   child: FittedBox(
                     fit: BoxFit.cover,
                     child: SizedBox(
-                      width: controller.videoPlayerController?.value.size.width ?? 0,
-                      height: controller.videoPlayerController?.value.size.height ?? 0,
-                      child: controller.chewieController != null ? Chewie(controller: controller.chewieController!) : CircularProgressIndicator(),
-                    ),
+                        // width:
+                        //     controller.videoPlayerController?.value.size.width ??
+                        //         0,
+                        // height:
+                        //     controller.videoPlayerController?.value.size.height ??
+                        //         0,
+                        // child: controller.chewieController != null ? Chewie(controller: controller.chewieController!) : CircularProgressIndicator(),
+                        ),
                   ),
                 ),
               );
@@ -247,33 +264,40 @@ class UserLiveUi extends StatelessWidget {
                               width: 178,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(56),
-                                border: Border.all(color: AppColor.colorBorder.withOpacity(0.3)),
+                                border: Border.all(
+                                    color:
+                                        AppColor.colorBorder.withOpacity(0.3)),
                                 color: AppColor.black.withOpacity(0.45),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
                                     height: 40,
                                     width: 40,
                                     clipBehavior: Clip.antiAlias,
-                                    decoration: const BoxDecoration(shape: BoxShape.circle),
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle),
                                     child: Stack(
                                       children: [
                                         AspectRatio(
                                           aspectRatio: 1,
-                                          child: Image.asset(AppAsset.icProfilePlaceHolder),
+                                          child: Image.asset(
+                                              AppAsset.icProfilePlaceHolder),
                                         ),
                                         AspectRatio(
                                           aspectRatio: 1,
-                                          child: PreviewNetworkImageUi(image: controller.image),
+                                          child: PreviewNetworkImageUi(
+                                              image: controller.image),
                                         ),
                                       ],
                                     ),
                                   ),
                                   2.width,
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SizedBox(
@@ -282,7 +306,8 @@ class UserLiveUi extends StatelessWidget {
                                           controller.name,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
-                                          style: AppFontStyle.styleW600(AppColor.white, 14),
+                                          style: AppFontStyle.styleW600(
+                                              AppColor.white, 14),
                                         ),
                                       ),
                                       Stack(
@@ -291,17 +316,23 @@ class UserLiveUi extends StatelessWidget {
                                         children: [
                                           Positioned(
                                             left: -10,
-                                            child: Lottie.asset(AppAsset.lottieWaveAnimation, fit: BoxFit.cover, height: 20, width: 15),
+                                            child: Lottie.asset(
+                                                AppAsset.lottieWaveAnimation,
+                                                fit: BoxFit.cover,
+                                                height: 20,
+                                                width: 15),
                                           ),
                                           Padding(
-                                            padding: const EdgeInsets.only(left: 18, top: 2.5),
+                                            padding: const EdgeInsets.only(
+                                                left: 18, top: 2.5),
                                             child: SizedBox(
                                               width: 60,
                                               child: Text(
                                                 controller.userName,
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
-                                                style: AppFontStyle.styleW500(AppColor.white, 9),
+                                                style: AppFontStyle.styleW500(
+                                                    AppColor.white, 9),
                                               ),
                                             ),
                                           ),
@@ -318,11 +349,14 @@ class UserLiveUi extends StatelessWidget {
                                         width: 40,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          gradient: AppColor.primaryLinearGradient,
+                                          gradient:
+                                              AppColor.primaryLinearGradient,
                                         ),
                                         child: Center(
                                           child: Image.asset(
-                                            controller.isFollow ? AppAsset.icFollowing : AppAsset.icFollow,
+                                            controller.isFollow
+                                                ? AppAsset.icFollowing
+                                                : AppAsset.icFollow,
                                             height: 22,
                                             width: 22,
                                             color: AppColor.white,
@@ -528,14 +562,19 @@ class CommentItemUi extends StatelessWidget {
                 height: 38,
                 width: 38,
                 clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(shape: BoxShape.circle, color: AppColor.colorBorder.withOpacity(0.8)),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColor.colorBorder.withOpacity(0.8)),
                 child: Stack(
                   children: [
                     AspectRatio(
                       aspectRatio: 1,
                       child: Image.asset(AppAsset.icProfilePlaceHolder),
                     ),
-                    AspectRatio(aspectRatio: 1, child: CachedNetworkImage(imageUrl: leading, fit: BoxFit.cover)),
+                    AspectRatio(
+                        aspectRatio: 1,
+                        child: CachedNetworkImage(
+                            imageUrl: leading, fit: BoxFit.cover)),
                   ],
                 ),
               ),

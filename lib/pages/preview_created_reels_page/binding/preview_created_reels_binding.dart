@@ -4,6 +4,6 @@ import 'package:shortie/pages/preview_created_reels_page/controller/preview_crea
 class PreviewCreatedReelsBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<PreviewCreatedReelsController>(() => PreviewCreatedReelsController());
+    // Get.lazyPut<PreviewCreatedReelsController>(() => PreviewCreatedReelsController());
   }
 }

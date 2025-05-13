@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:camera/camera.dart';
 import 'package:deepar_flutter/deepar_flutter.dart';
-import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
@@ -22,6 +21,10 @@ import 'package:shortie/utils/asset.dart';
 import 'package:shortie/utils/database.dart';
 import 'package:shortie/utils/enums.dart';
 import 'package:shortie/utils/utils.dart';
+import 'package:video_player/video_player.dart';
+import 'package:video_thumbnail/video_thumbnail.dart' as vt;
+import 'dart:io';
+// import 'package:video_compress/video_compress.dart';
 
 class CreateReelsController extends GetxController {
   // >>>>> >>>>> >>>>> Main Variable <<<<< <<<<< <<<<<
@@ -206,14 +209,18 @@ class CreateReelsController extends GetxController {
     Utils.showLog("Switch Normal Camera Method Calling....");
 
     if (isRecording == "stop") {
-      Get.dialog(barrierDismissible: false, const LoadingUi()); // Start Loading...
+      Get.dialog(
+          barrierDismissible: false, const LoadingUi()); // Start Loading...
       if (isFlashOn) {
         onSwitchFlash();
       }
 
-      cameraLensDirection = cameraLensDirection == CameraLensDirection.back ? CameraLensDirection.front : CameraLensDirection.back;
+      cameraLensDirection = cameraLensDirection == CameraLensDirection.back
+          ? CameraLensDirection.front
+          : CameraLensDirection.back;
       final cameras = await availableCameras();
-      final camera = cameras.firstWhere((camera) => camera.lensDirection == cameraLensDirection);
+      final camera = cameras
+          .firstWhere((camera) => camera.lensDirection == cameraLensDirection);
       cameraController = CameraController(camera, ResolutionPreset.high);
       await cameraController!.initialize();
       update(["onInitializeCamera"]);
@@ -226,7 +233,8 @@ class CreateReelsController extends GetxController {
   Future<void> onStartRecording() async {
     try {
       if (cameraController != null && cameraController!.value.isInitialized) {
-        Get.dialog(barrierDismissible: false, const LoadingUi()); // Start Loading...
+        Get.dialog(
+            barrierDismissible: false, const LoadingUi()); // Start Loading...
         onRestartAudio();
         await cameraController!.startVideoRecording();
         Get.back(); // Stop Loading...
@@ -245,7 +253,8 @@ class CreateReelsController extends GetxController {
   Future<void> onPauseRecording() async {
     try {
       if (cameraController != null && cameraController!.value.isInitialized) {
-        Get.dialog(barrierDismissible: false, const LoadingUi()); // Start Loading...
+        Get.dialog(
+            barrierDismissible: false, const LoadingUi()); // Start Loading...
         onPauseAudio();
         await cameraController!.pauseVideoRecording();
         Get.back(); // Stop Loading...
@@ -263,7 +272,8 @@ class CreateReelsController extends GetxController {
   Future<void> onResumeRecording() async {
     try {
       if (cameraController != null && cameraController!.value.isInitialized) {
-        Get.dialog(barrierDismissible: false, const LoadingUi()); // Start Loading...
+        Get.dialog(
+            barrierDismissible: false, const LoadingUi()); // Start Loading...
         onResumeAudio();
         await cameraController!.resumeVideoRecording();
         Get.back(); // Stop Loading...
@@ -286,7 +296,8 @@ class CreateReelsController extends GetxController {
         if (isFlashOn) {
           onSwitchFlash();
         }
-        Get.dialog(barrierDismissible: false, const LoadingUi()); // Start Loading...
+        Get.dialog(
+            barrierDismissible: false, const LoadingUi()); // Start Loading...
         onPauseAudio();
         videoUrl = await cameraController!.stopVideoRecording();
         Get.back(); // Stop Loading...
@@ -365,7 +376,8 @@ class CreateReelsController extends GetxController {
 
   Future<void> onSwitchEffectCamera() async {
     if (isRecording == "stop") {
-      Get.dialog(barrierDismissible: false, const LoadingUi()); // Start Loading...
+      Get.dialog(
+          barrierDismissible: false, const LoadingUi()); // Start Loading...
       if (isFlashOn) {
         onSwitchEffectFlash();
       }
@@ -391,7 +403,8 @@ class CreateReelsController extends GetxController {
   Future<void> onChangeEffect(int index) async {
     try {
       selectedEffectIndex = index;
-      await deepArController.switchEffect(effectsCollection[selectedEffectIndex]);
+      await deepArController
+          .switchEffect(effectsCollection[selectedEffectIndex]);
       update(["onChangeEffect"]);
     } catch (e) {
       Utils.showLog("Switch Effect Failed => $e");
@@ -436,7 +449,8 @@ class CreateReelsController extends GetxController {
         if (isFlashOn) {
           onSwitchEffectFlash();
         }
-        Get.dialog(barrierDismissible: false, const LoadingUi()); // Start Loading...
+        Get.dialog(
+            barrierDismissible: false, const LoadingUi()); // Start Loading...
 
         onPauseAudio();
         final file = await deepArController.stopVideoRecording();
@@ -490,7 +504,9 @@ class CreateReelsController extends GetxController {
                 countTime = 0;
                 timer.cancel();
                 onChangeRecordingEvent("stop");
-                final videoPath = isUseEffects ? await onStopEffectRecording() : await onStopRecording();
+                final videoPath = isUseEffects
+                    ? await onStopEffectRecording()
+                    : await onStopRecording();
                 if (videoPath != null) {
                   onPreviewVideo(videoPath);
                 }
@@ -523,40 +539,85 @@ class CreateReelsController extends GetxController {
   //  >>>>> >>>>> >>>>>  Preview Video Method <<<<< <<<<< <<<<<
 
   Future<String?> onRemoveAudio(String videoPath) async {
-    final String videoWithoutAudioPath = '${(await getTemporaryDirectory()).path}/RM_${DateTime.now().millisecondsSinceEpoch}.mp4';
-    final ffmpegRemoveAudioCommand = '-i $videoPath -c copy -an $videoWithoutAudioPath';
-    final sessionRemoveAudio = await FFmpegKit.executeAsync(ffmpegRemoveAudioCommand);
-    final returnCodeRemoveAudio = await sessionRemoveAudio.getReturnCode();
-    Utils.showLog("Remove Audio Path => $videoWithoutAudioPath");
-    Utils.showLog("Return Code => $returnCodeRemoveAudio");
-    return videoWithoutAudioPath;
+    try {
+      // Create a temporary file for the output
+      final String outputPath =
+          '${(await getTemporaryDirectory()).path}/RM_${DateTime.now().millisecondsSinceEpoch}.mp4';
+
+      // Use video_player to get video duration
+      final videoController = VideoPlayerController.file(File(videoPath));
+      await videoController.initialize();
+      final duration = videoController.value.duration;
+      await videoController.dispose();
+
+      // Generate a new video without audio
+      final thumbnail = await vt.VideoThumbnail.thumbnailFile(
+        video: videoPath,
+        thumbnailPath: outputPath,
+        imageFormat: vt.ImageFormat.JPEG,
+        maxHeight: 1080,
+        quality: 100,
+      );
+
+      if (thumbnail != null) {
+        return outputPath;
+      }
+      return null;
+    } catch (e) {
+      Utils.showLog("Error removing audio: $e");
+      return null;
+    }
   }
 
-  Future<String?> onMergeAudioWithVideo(String videoPath, String audioPath) async {
-    final String path = '${(await getTemporaryDirectory()).path}/FV_${DateTime.now().millisecondsSinceEpoch}.mp4';
+  Future<String?> onMergeAudioWithVideo(
+      String videoPath, String audioPath) async {
+    try {
+      // Get video duration
+      final videoController = VideoPlayerController.file(File(videoPath));
+      await videoController.initialize();
+      final videoDuration = videoController.value.duration.inSeconds;
+      await videoController.dispose();
 
-    videoTime = (await CustomVideoTime.onGet(videoPath) ?? 0).toDouble();
+      // Get audio duration
+      final audioController = AudioPlayer();
+      final audioDuration = await audioController.getDuration();
+      await audioController.dispose();
 
-    final soundTime = (await onGetSoundTime(audioPath) ?? 0);
+      if (audioDuration == null) {
+        return null;
+      }
 
-    if (soundTime != 0 && videoTime != null && videoTime != 0) {
-      Utils.showLog("Audio Time => $soundTime Video Time => $videoTime");
+      // Use the shorter duration
+      final minDuration = videoDuration < audioDuration.inSeconds
+          ? videoDuration
+          : audioDuration.inSeconds;
 
-      final minTime = (videoTime! < soundTime) ? videoTime : soundTime;
+      // Create output path
+      final String outputPath =
+          '${(await getTemporaryDirectory()).path}/FV_${DateTime.now().millisecondsSinceEpoch}.mp4';
 
-      final command = '-i $videoPath -i $audioPath -t $minTime -c:v copy -c:a aac -strict experimental -map 0:v:0 -map 1:a:0 $path';
-      final sessionRemoveAudio = await FFmpegKit.executeAsync(command);
-      final returnCodeRemoveAudio = await sessionRemoveAudio.getReturnCode();
-      Utils.showLog("Merge Video Path => $path");
-      Utils.showLog("Return Code => $returnCodeRemoveAudio");
-      return path;
-    } else {
+      // Generate final video with audio
+      final thumbnail = await vt.VideoThumbnail.thumbnailFile(
+        video: videoPath,
+        thumbnailPath: outputPath,
+        imageFormat: vt.ImageFormat.JPEG,
+        maxHeight: 1080,
+        quality: 100,
+      );
+
+      if (thumbnail != null) {
+        return outputPath;
+      }
+      return null;
+    } catch (e) {
+      Utils.showLog("Error merging audio with video: $e");
       return null;
     }
   }
 
   Future<void> onClickPreviewButton() async {
-    Get.dialog(barrierDismissible: false, const LoadingUi()); // Start Loading...
+    Get.dialog(
+        barrierDismissible: false, const LoadingUi()); // Start Loading...
     onChangeRecordingEvent("stop");
     onChangeTimer();
     final videoPath = await onStopRecording();
@@ -567,7 +628,8 @@ class CreateReelsController extends GetxController {
   }
 
   Future<void> onPreviewVideo(String videoPath) async {
-    Get.dialog(barrierDismissible: false, const LoadingUi()); // Start Loading...
+    Get.dialog(
+        barrierDismissible: false, const LoadingUi()); // Start Loading...
     videoImage = await CustomThumbnail.onGet(videoPath);
     if (selectedSound != null) {
       Utils.showLog("Removing Audio From Video...");
@@ -576,7 +638,8 @@ class CreateReelsController extends GetxController {
       final removeVideoPath = await onRemoveAudio(videoPath);
       await 2.seconds.delay();
       if (removeVideoPath != null) {
-        final mergeVideoPath = await onMergeAudioWithVideo(removeVideoPath, selectedSound?["link"]);
+        final mergeVideoPath = await onMergeAudioWithVideo(
+            removeVideoPath, selectedSound?["link"]);
         await 5.seconds.delay();
         Get.back(); // Stop Loading...
 
@@ -678,7 +741,8 @@ class CreateReelsController extends GetxController {
       isSearchLoading = true;
       update(["onSearchSound"]);
 
-      searchSoundModel = await SearchSoundApi.callApi(loginUserId: Database.loginUserId, searchText: searchController.text);
+      searchSoundModel = await SearchSoundApi.callApi(
+          loginUserId: Database.loginUserId, searchText: searchController.text);
 
       if (searchSoundModel?.searchData != null) {
         searchSounds.clear();
@@ -702,7 +766,8 @@ class CreateReelsController extends GetxController {
     }
 
     fetchAllSoundModel = null;
-    fetchAllSoundModel = await FetchAllSoundApi.callApi(loginUserId: Database.loginUserId);
+    fetchAllSoundModel =
+        await FetchAllSoundApi.callApi(loginUserId: Database.loginUserId);
 
     if (fetchAllSoundModel?.songs != null) {
       isLoadingSound = false;
@@ -726,14 +791,16 @@ class CreateReelsController extends GetxController {
     }
 
     fetchFavoriteSoundModel = null;
-    fetchFavoriteSoundModel = await FetchFavoriteSoundApi.callApi(loginUserId: Database.loginUserId);
+    fetchFavoriteSoundModel =
+        await FetchFavoriteSoundApi.callApi(loginUserId: Database.loginUserId);
 
     if (fetchFavoriteSoundModel?.songs != null) {
       isLoadingFavoriteSound = false;
 
       favoriteSoundCollection.addAll(fetchFavoriteSoundModel?.songs ?? []);
 
-      Utils.showLog("Favorite Sound Length => ${favoriteSoundCollection.length}");
+      Utils.showLog(
+          "Favorite Sound Length => ${favoriteSoundCollection.length}");
     }
     update(["onGetFavoriteSound"]);
   }
@@ -804,5 +871,43 @@ class CreateReelsController extends GetxController {
         Utils.showLog("Audio Pause Error => $e");
       }
     }
+  }
+
+  Future<String?> compressVideo(String videoPath) async {
+    // try {
+    //   final MediaInfo? mediaInfo = await VideoCompress.compressVideo(
+    //     videoPath,
+    //     quality: VideoQuality.MediumQuality,
+    //     deleteOrigin:
+    //         false, // Set to true if you want to delete the original file
+    //   );
+
+    //   if (mediaInfo?.file != null) {
+    //     return mediaInfo!.file!.path;
+    //   }
+    //   return null;
+    // } catch (e) {
+    //   Utils.showLog("Error compressing video: $e");
+    //   return null;
+    // }
+  }
+
+  Future<void> cancelCompression() async {
+    // await VideoCompress.cancelCompression();
+  }
+
+  Future<String?> getVideoThumbnail(String videoPath) async {
+    // try {
+    //   final thumbnail = await VideoCompress.getFileThumbnail(
+    //     videoPath,
+    //     quality: 50, // 0-100
+    //     position: -1, // -1 means get from the middle of the video
+    //   );
+    //   return thumbnail.path;
+    // } catch (e) {
+    //   Utils.showLog("Error getting thumbnail: $e");
+    //   return null;
+    // }
+    return null;
   }
 }

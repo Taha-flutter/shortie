@@ -10,7 +10,7 @@ import 'package:shortie/ui/loading_ui.dart';
 import 'package:shortie/utils/asset.dart';
 import 'package:shortie/utils/color.dart';
 import 'package:shortie/utils/font_style.dart';
-import 'package:video_trimmer/video_trimmer.dart';
+// import 'package:video_trimmer/video_trimmer.dart';
 
 class TrimVideoView extends GetView<TrimVideoController> {
   const TrimVideoView({super.key});
@@ -46,15 +46,15 @@ class TrimVideoView extends GetView<TrimVideoController> {
                     : SizedBox.expand(
                         child: FittedBox(
                           fit: BoxFit.cover,
-                          child: SizedBox(
-                            height: controller.trimmer.videoPlayerController?.value.size.height ?? 0,
-                            width: controller.trimmer.videoPlayerController?.value.size.width ?? 0,
-                            child: VideoViewer(
-                              trimmer: controller.trimmer,
-                              padding: EdgeInsets.zero,
-                              borderWidth: 0,
-                            ),
-                          ),
+                          // child: SizedBox(
+                          //   height: controller.trimmer.videoPlayerController?.value.size.height ?? 0,
+                          //   width: controller.trimmer.videoPlayerController?.value.size.width ?? 0,
+                          //   child: VideoViewer(
+                          //     trimmer: controller.trimmer,
+                          //     padding: EdgeInsets.zero,
+                          //     borderWidth: 0,
+                          //   ),
+                          // ),
                         ),
                       ),
               ),
@@ -65,7 +65,10 @@ class TrimVideoView extends GetView<TrimVideoController> {
                   width: Get.width,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [AppColor.black.withOpacity(0.7), AppColor.transparent],
+                      colors: [
+                        AppColor.black.withOpacity(0.7),
+                        AppColor.transparent
+                      ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -79,7 +82,10 @@ class TrimVideoView extends GetView<TrimVideoController> {
                   width: Get.width,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [AppColor.transparent, AppColor.black.withOpacity(0.7)],
+                      colors: [
+                        AppColor.transparent,
+                        AppColor.black.withOpacity(0.7)
+                      ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -119,7 +125,8 @@ class TrimVideoView extends GetView<TrimVideoController> {
                             ),
                             child: Text(
                               "Save",
-                              style: AppFontStyle.styleW700(AppColor.white, 15.5),
+                              style:
+                                  AppFontStyle.styleW700(AppColor.white, 15.5),
                             ),
                           ),
                         ),
@@ -129,17 +136,17 @@ class TrimVideoView extends GetView<TrimVideoController> {
                   ),
                 ),
               ),
-              Positioned(
-                bottom: 30,
-                child: TrimViewer(
-                  trimmer: controller.trimmer,
-                  viewerHeight: 60.0,
-                  viewerWidth: MediaQuery.of(context).size.width,
-                  onChangeStart: controller.onChangeStart,
-                  onChangeEnd: controller.onChangeEnd,
-                  onChangePlaybackState: controller.onChangePlaybackState,
-                ),
-              ),
+              // Positioned(
+              //   bottom: 30,
+              // child: TrimViewer(
+              //   trimmer: controller.trimmer,
+              //   viewerHeight: 60.0,
+              //   viewerWidth: MediaQuery.of(context).size.width,
+              //   onChangeStart: controller.onChangeStart,
+              //   onChangeEnd: controller.onChangeEnd,
+              //   onChangePlaybackState: controller.onChangePlaybackState,
+              // ),
+              // ),
               GetBuilder<TrimVideoController>(
                 id: "onToggleIcon",
                 builder: (controller) => Visibility(
@@ -153,11 +160,16 @@ class TrimVideoView extends GetView<TrimVideoController> {
                         builder: (controller) => Container(
                           height: 70,
                           width: 70,
-                          padding: EdgeInsets.only(left: controller.isPlaying ? 0 : 2),
-                          decoration: BoxDecoration(color: AppColor.black.withOpacity(0.2), shape: BoxShape.circle),
+                          padding: EdgeInsets.only(
+                              left: controller.isPlaying ? 0 : 2),
+                          decoration: BoxDecoration(
+                              color: AppColor.black.withOpacity(0.2),
+                              shape: BoxShape.circle),
                           child: Center(
                             child: Image.asset(
-                              controller.isPlaying ? AppAsset.icPause : AppAsset.icPlay,
+                              controller.isPlaying
+                                  ? AppAsset.icPause
+                                  : AppAsset.icPlay,
                               width: 30,
                               height: 30,
                               color: AppColor.white,
